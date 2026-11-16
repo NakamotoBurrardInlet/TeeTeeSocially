@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TEETEE SOCIALLY — Connect, Share &amp; Discuss</title>
+
+  <!-- Standard Web Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. CSS CASCADE VARIABLES & DESIGN TOKENS (PURPLE, WHITE, RED & BLACK)
+       ========================================================================== */
+    :root {
+      --purple: #6c2bd9;
+      --purple-dark: #4c1d95;
+      --purple-light: #ede9fe;
+      --purple-soft: #f5f3ff;
+      --red: #e11d48;
+      --red-dark: #be123c;
+      --red-light: #ffe4e6;
+      --white: #ffffff;
+      --off-white: #faf8ff;
+      --black: #111111;
+      --gray-muted: #4b5563;
+
+      --border-thin: 2px solid var(--black);
+      --border-thick: 3px solid var(--black);
+      --shadow-sm: 3px 3px 0px var(--black);
+      --shadow-md: 5px 5px 0px var(--black);
+      --shadow-lg: 7px 7px 0px var(--black);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-pill: 999px;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    }
+
+    /* ==========================================================================
+       2. GLOBAL RESET & BASE DOCUMENT CASCADE
+       ========================================================================== */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--purple-soft);
+      background-image: radial-gradient(var(--purple-light) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      color: var(--black);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: var(--black);
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ==========================================================================
+       3. TOP NAVIGATION HEADER BAR
+       ========================================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--white);
+      border-bottom: var(--border-thick);
+    }
+
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--black);
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background-color: var(--purple);
+      border: var(--border-thin);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .brand-title span {
+      background-color: var(--red);
+      color: var(--white);
+      padding: 2px 8px;
+      border: var(--border-thin);
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    /* Primary Navigation Tabs */
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .nav-tab {
+      background-color: var(--white);
+      border: var(--border-thin);
+      border-radius: var(--radius-pill);
+      padding: 7px 15px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .nav-tab:hover {
+      background-color: var(--purple-light);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-tab.active {
+      background-color: var(--purple);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-badge {
+      background-color: var(--red);
+      color: var(--white);
+      border: 1.5px solid var(--black);
+      border-radius: var(--radius-pill);
+      padding: 0 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    /* User Session Button */
+    .user-pill-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--purple-light);
+      border: var(--border-thin);
+      border-radius: var(--radius-pill);
+      padding: 5px 14px 5px 6px;
+      box-shadow: var(--shadow-sm);
+      font-weight: 700;
+      font-size: 0.86rem;
+      transition: transform 0.12s ease;
+    }
+
+    .user-pill-btn:hover {
+      transform: translate(-1px, -1px);
+      background-color: var(--white);
+    }
+
+    .avatar-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: var(--border-thin);
+      background-color: var(--red);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .avatar-circle.purple {
+      background-color: var(--purple);
+    }
+
+    /* ==========================================================================
+       4. MAIN RESPONSIVE LAYOUT GRID
+       ========================================================================== */
+    .app-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 24px 20px 64px;
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 900px) {
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .sidebar-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: 84px;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar-column {
+        position: static;
+      }
+    }
+
+    .feed-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      min-width: 0;
+    }
+
+    /* ==========================================================================
+       5. SHARED CARD & COMPONENT SURFACES
+       ========================================================================== */
+    .card {
+      background-color: var(--white);
+      border: var(--border-thick);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 12px 18px;
+      border-bottom: var(--border-thin);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .card-header.purple {
+      background-color: var(--purple);
+      color: var(--white);
+    }
+
+    .card-header.red {
+      background-color: var(--red);
+      color: var(--white);
+    }
+
+    .card-header.light {
+      background-color: var(--purple-light);
+      color: var(--black);
+    }
+
+    .card-body {
+      padding: 18px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 16px;
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.88rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.12s ease;
+    }
+
+    .btn:hover {
+      transform: translate(-1px, -1px);
+    }
+
+    .btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 0 0 0 var(--black);
+    }
+
+    .btn-red {
+      background-color: var(--red);
+      color: var(--white);
+    }
+
+    .btn-red:hover {
+      background-color: var(--red-dark);
+    }
+
+    .btn-purple {
+      background-color: var(--purple);
+      color: var(--white);
+    }
+
+    .btn-purple:hover {
+      background-color: var(--purple-dark);
+    }
+
+    .btn-white {
+      background-color: var(--white);
+      color: var(--black);
+    }
+
+    .btn-white:hover {
+      background-color: var(--purple-light);
+    }
+
+    .btn-sm {
+      padding: 5px 11px;
+      font-size: 0.8rem;
+    }
+
+    /* Form Controls */
+    .field-input,
+    .field-select,
+    .field-textarea {
+      width: 100%;
+      padding: 10px 13px;
+      background-color: var(--off-white);
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      outline: none;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .field-input:focus,
+    .field-select:focus,
+    .field-textarea:focus {
+      background-color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .field-textarea {
+      resize: vertical;
+      min-height: 86px;
+    }
+
+    /* ==========================================================================
+       6. SIDEBAR WIDGETS (PROFILE SUMMARY, TRENDING, SUGGESTED MEMBERS)
+       ========================================================================== */
+    .profile-banner {
+      height: 54px;
+      background: repeating-linear-gradient(
+        -45deg,
+        var(--purple),
+        var(--purple) 14px,
+        var(--red) 14px,
+        var(--red) 28px
+      );
+      border-bottom: var(--border-thin);
+    }
+
+    .profile-summary-body {
+      padding: 0 18px 18px;
+    }
+
+    .profile-avatar-lg {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--purple);
+      color: var(--white);
+      border: var(--border-thick);
+      box-shadow: var(--shadow-sm);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -30px;
+      margin-bottom: 10px;
+    }
+
+    .profile-name {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .profile-handle {
+      margin: 2px 0 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--purple);
+    }
+
+    .profile-bio {
+      margin: 0 0 14px;
+      font-size: 0.86rem;
+      color: var(--gray-muted);
+    }
+
+    .profile-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      background-color: var(--purple-soft);
+      overflow: hidden;
+    }
+
+    .stat-box {
+      padding: 8px 6px;
+      text-align: center;
+    }
+
+    .stat-box + .stat-box {
+      border-left: var(--border-thin);
+    }
+
+    .stat-num {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--black);
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--purple-dark);
+    }
+
+    /* Trending Topics */
+    .trending-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .trending-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 12px;
+      background-color: var(--off-white);
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      transition: background-color 0.12s ease, transform 0.12s ease;
+    }
+
+    .trending-item:hover,
+    .trending-item.active-tag {
+      background-color: var(--purple-light);
+      transform: translate(-1px, -1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .trending-item.active-tag {
+      border-color: var(--black);
+      background-color: var(--red-light);
+    }
+
+    .trending-tag {
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--purple-dark);
+    }
+
+    .trending-count {
+      font-size: 0.76rem;
+      font-weight: 700;
+      background-color: var(--white);
+      border: 1.5px solid var(--black);
+      border-radius: var(--radius-pill);
+      padding: 2px 8px;
+    }
+
+    /* Suggested Members */
+    .member-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .member-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .member-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .member-meta {
+      min-width: 0;
+    }
+
+    .member-name {
+      font-weight: 700;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .member-handle {
+      font-size: 0.78rem;
+      color: var(--gray-muted);
+    }
+
+    /* ==========================================================================
+       7. COMPOSER & POST FEED CARDS
+       ========================================================================== */
+    .composer-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .composer-attachments {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .image-attach-drawer {
+      margin-top: 12px;
+      padding: 12px;
+      background-color: var(--purple-soft);
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .image-attach-drawer.open {
+      display: flex;
+    }
+
+    .composer-preview-wrap {
+      position: relative;
+      max-width: 240px;
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background-color: var(--white);
+    }
+
+    .remove-preview-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background-color: var(--red);
+      color: var(--white);
+      border: var(--border-thin);
+      border-radius: 6px;
+      padding: 2px 7px;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    /* Filter Status Banner */
+    .filter-banner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 12px 16px;
+      background-color: var(--white);
+      border: var(--border-thick);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-bar-wrap {
+      display: flex;
+      gap: 8px;
+      flex: 1;
+      min-width: 220px;
+    }
+
+    /* Individual Post Card */
+    .post-card {
+      background-color: var(--white);
+      border: var(--border-thick);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      padding: 18px;
+      transition: transform 0.12s ease;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .post-author-block {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .post-author-name {
+      font-weight: 800;
+      font-size: 0.98rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .post-subline {
+      font-size: 0.8rem;
+      color: var(--gray-muted);
+      font-weight: 500;
+    }
+
+    .category-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border: var(--border-thin);
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      background-color: var(--purple-light);
+      color: var(--purple-dark);
+    }
+
+    .category-badge.hot {
+      background-color: var(--red-light);
+      color: var(--red-dark);
+    }
+
+    .post-body-text {
+      margin: 0 0 14px;
+      font-size: 0.98rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .hashtag-inline {
+      color: var(--purple);
+      font-weight: 700;
+    }
+
+    .post-image-frame {
+      margin-bottom: 14px;
+      border: var(--border-thick);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background-color: var(--off-white);
+    }
+
+    .post-image-frame img {
+      width: 100%;
+      max-height: 430px;
+      object-fit: cover;
+    }
+
+    /* Post Action Bar */
+    .post-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: var(--border-thin);
+    }
+
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background-color: var(--off-white);
+      border: var(--border-thin);
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.82rem;
+      transition: background-color 0.12s ease, transform 0.1s ease;
+    }
+
+    .action-pill:hover {
+      background-color: var(--purple-light);
+      transform: translateY(-1px);
+    }
+
+    .action-pill.liked {
+      background-color: var(--red);
+      color: var(--white);
+      box-shadow: 2px 2px 0 var(--black);
+    }
+
+    .action-pill.reposted {
+      background-color: var(--purple);
+      color: var(--white);
+      box-shadow: 2px 2px 0 var(--black);
+    }
+
+    .action-pill.bookmarked {
+      background-color: var(--black);
+      color: var(--white);
+    }
+
+    /* Comment Drawer */
+    .comment-drawer {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 2px dashed var(--black);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .comment-item {
+      padding: 9px 12px;
+      background-color: var(--purple-soft);
+      border: var(--border-thin);
+      border-radius: var(--radius-sm);
+    }
+
+    .comment-meta {
+      font-size: 0.78rem;
+      font-weight: 800;
+      margin-bottom: 3px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .comment-meta span {
+      color: var(--purple-dark);
+    }
+
+    .comment-text {
+      margin: 0;
+      font-size: 0.88rem;
+    }
+
+    .comment-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* ==========================================================================
+       8. NOTIFICATIONS & PROFILE VIEWS
+       ========================================================================== */
+    .notification-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      background-color: var(--white);
+      border: var(--border-thick);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .notif-tag {
+      padding: 3px 9px;
+      border: var(--border-thin);
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .notif-tag.like {
+      background-color: var(--red);
+      color: var(--white);
+    }
+
+    .notif-tag.comment {
+      background-color: var(--purple);
+      color: var(--white);
+    }
+
+    .notif-tag.follow {
+      background-color: var(--purple-light);
+      color: var(--black);
+    }
+
+    /* ==========================================================================
+       9. ACCOUNT SWITCHER / LOGIN MODAL & TOAST BANNER
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background-color: rgba(17, 17, 17, 0.72);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 460px;
+      background-color: var(--white);
+      border: var(--border-thick);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+
+    .modal-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: var(--border-thin);
+    }
+
+    .modal-tab-btn {
+      padding: 11px;
+      background-color: var(--purple-soft);
+      border: none;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+
+    .modal-tab-btn + .modal-tab-btn {
+      border-left: var(--border-thin);
+    }
+
+    .modal-tab-btn.active {
+      background-color: var(--purple);
+      color: var(--white);
+    }
+
+    .quick-account-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .toast-banner {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 900;
+      background-color: var(--black);
+      color: var(--white);
+      border: var(--border-thick);
+      border-color: var(--red);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+      padding: 11px 16px;
+      font-weight: 700;
+      font-size: 0.86rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .toast-banner.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 36px 20px;
+      background-color: var(--white);
+      border: var(--border-thick);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       HEADER / NAVIGATION BAR
+       ======================================================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#home" class="brand-link" id="brand-home-link">
+        <div class="brand-mark">TT</div>
+        <div class="brand-title">
+          TEETEE <span>SOCIALLY</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Primary Navigation">
+        <button type="button" class="nav-tab active" data-view="home">Home Feed</button>
+        <button type="button" class="nav-tab" data-view="explore">Explore</button>
+        <button type="button" class="nav-tab" data-view="notifications">
+          Notifications
+          <span class="nav-badge" id="notif-count-badge">3</span>
+        </button>
+        <button type="button" class="nav-tab" data-view="profile">Profile</button>
+      </nav>
+
+      <button type="button" class="user-pill-btn" id="open-account-modal-btn" title="Switch account or register">
+        <span class="avatar-circle" id="header-avatar">TS</span>
+        <span id="header-username">@teetee_official</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN WORKSPACE: SIDEBAR WIDGETS + SOCIAL FEED
+       ======================================================================== -->
+  <main class="app-shell">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar-column">
+      <!-- User Profile Summary Card -->
+      <section class="card" aria-label="Member Profile Summary">
+        <div class="profile-banner"></div>
+        <div class="profile-summary-body">
+          <div class="profile-avatar-lg" id="sidebar-avatar">TS</div>
+          <h2 class="profile-name" id="sidebar-display-name">TeeTee Creator</h2>
+          <p class="profile-handle" id="sidebar-handle">@teetee_official</p>
+          <p class="profile-bio" id="sidebar-bio">
+            Sharing bold ideas, late-night playlists, and real-time conversations on TeeTee Socially.
+          </p>
+
+          <div class="profile-stats-row">
+            <div class="stat-box">
+              <span class="stat-num" id="stat-posts">0</span>
+              <span class="stat-label">Posts</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num" id="stat-followers">148</span>
+              <span class="stat-label">Followers</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-num" id="stat-following">0</span>
+              <span class="stat-label">Following</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trending on TeeTee Widget -->
+      <section class="card" aria-label="Trending Topics">
+        <div class="card-header purple">
+          <span>Trending on TeeTee</span>
+          <button type="button" class="btn btn-white btn-sm" id="clear-tag-filter-btn" style="display: none;">Reset</button>
+        </div>
+        <div class="card-body">
+          <ul class="trending-list" id="trending-list"></ul>
+        </div>
+      </section>
+
+      <!-- Suggested Members Widget -->
+      <section class="card" aria-label="Suggested Members">
+        <div class="card-header red">
+          <span>Suggested Members</span>
+          <span>+</span>
+        </div>
+        <div class="card-body">
+          <div class="member-list" id="suggested-members-list"></div>
+        </div>
+      </section>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT COLUMN -->
+    <section class="feed-column">
+
+      <!-- Post Composer Card (Shown on Home & Profile views) -->
+      <div class="card" id="composer-card">
+        <div class="card-header purple">
+          <span>Create a New Post</span>
+          <span id="composer-author-tag" style="font-size: 0.78rem;">Posting as @teetee_official</span>
+        </div>
+        <div class="card-body">
+          <form id="post-composer-form">
+            <textarea
+              id="post-text-input"
+              class="field-textarea"
+              placeholder="What's happening on TeeTee Socially? Use #hashtags to trend..."
+              required
+            ></textarea>
+
+            <!-- Collapsible Image Attachment Drawer -->
+            <div class="image-attach-drawer" id="image-attach-drawer">
+              <div style="display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center;">
+                <input
+                  type="url"
+                  id="post-image-url-input"
+                  class="field-input"
+                  placeholder="Paste image URL (https://...) or upload a file below"
+                />
+                <label class="btn btn-purple btn-sm" style="margin: 0;">
+                  Upload File
+                  <input type="file" id="post-image-file-input" accept="image/*" style="display: none;" />
+                </label>
+              </div>
+              <div class="composer-preview-wrap" id="composer-preview-wrap" style="display: none;">
+                <img id="composer-preview-img" src="" alt="Attached preview" />
+                <button type="button" class="remove-preview-btn" id="remove-preview-btn">Remove</button>
+              </div>
+            </div>
+
+            <div class="composer-toolbar">
+              <div class="composer-attachments">
+                <select id="post-category-select" class="field-select" style="width: auto; padding: 7px 12px; font-weight: 700;">
+                  <option value="General">Category: General</option>
+                  <option value="Creative">Category: Creative</option>
+                  <option value="Music & Vibe">Category: Music &amp; Vibe</option>
+                  <option value="Hot Take">Category: Hot Take</option>
+                  <option value="Tech & Web">Category: Tech &amp; Web</option>
+                </select>
+
+                <button type="button" class="btn btn-white btn-sm" id="toggle-image-drawer-btn">
+                  + Attach Photo
+                </button>
+              </div>
+
+              <button type="submit" class="btn btn-red">
+                Post to TeeTee
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- View Header & Search / Filter Bar -->
+      <div class="filter-banner" id="feed-filter-banner">
+        <div>
+          <strong id="active-view-title" style="font-family: var(--font-display); font-size: 1.05rem;">Home Feed</strong>
+          <span id="active-filter-chip" style="margin-left: 8px; font-size: 0.82rem; font-weight: 700; color: var(--red);"></span>
+        </div>
+
+        <div class="search-bar-wrap">
+          <input
+            type="search"
+            id="feed-search-input"
+            class="field-input"
+            style="padding: 7px 12px;"
+            placeholder="Search posts, @handles, or #tags..."
+          />
+          <button type="button" class="btn btn-white btn-sm" id="bookmark-filter-btn">Saved</button>
+        </div>
+      </div>
+
+      <!-- Dynamic Feed / Explore / Notifications / Profile Output Container -->
+      <div id="main-stream-container" style="display: flex; flex-direction: column; gap: 18px;"></div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       ACCOUNT SWITCHER / LOGIN & REGISTRATION MODAL
+       ======================================================================== -->
+  <div class="modal-backdrop" id="account-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="card-header purple">
+        <span id="modal-title">TeeTee Socially Member Pass</span>
+        <button type="button" class="btn btn-red btn-sm" id="close-account-modal-btn">Close</button>
+      </div>
+
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab-btn active" id="tab-switch-login">Switch / Login</button>
+        <button type="button" class="modal-tab-btn" id="tab-create-account">Create Account</button>
+      </div>
+
+      <div class="card-body">
+        <!-- Switch / Login Tab -->
+        <div id="panel-switch-login">
+          <form id="login-account-form" style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+              <label style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px;">Member Handle</label>
+              <input type="text" id="login-handle-input" class="field-input" placeholder="e.g. teetee_official" required />
+            </div>
+            <div>
+              <label style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px;">Passcode</label>
+              <input type="password" id="login-pass-input" class="field-input" placeholder="Enter passcode (default: 1234)" required />
+            </div>
+            <button type="submit" class="btn btn-red" style="width: 100%;">Sign In to TeeTee</button>
+          </form>
+
+          <div style="margin-top: 16px; padding-top: 14px; border-top: var(--border-thin);">
+            <div style="font-size: 0.78rem; font-weight: 800; text-transform: uppercase; color: var(--purple-dark);">
+              Instant Demo Accounts (One-Click Switch)
+            </div>
+            <div class="quick-account-grid" id="quick-account-grid"></div>
+          </div>
+        </div>
+
+        <!-- Register Tab -->
+        <div id="panel-create-account" style="display: none;">
+          <form id="register-account-form" style="display: flex; flex-direction: column; gap: 12px;">
+            <div>
+              <label style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px;">Display Name</label>
+              <input type="text" id="reg-name-input" class="field-input" placeholder="e.g. Maya Lin" required />
+            </div>
+            <div>
+              <label style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px;">Username Handle</label>
+              <input type="text" id="reg-handle-input" class="field-input" placeholder="e.g. maya_creates" required />
+            </div>
+            <div>
+              <label style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px;">Passcode</label>
+              <input type="password" id="reg-pass-input" class="field-input" placeholder="Choose a passcode" required />
+            </div>
+            <div>
+              <label style="display: block; font-weight: 700; font-size: 0.82rem; margin-bottom: 4px;">Short Bio</label>
+              <input type="text" id="reg-bio-input" class="field-input" placeholder="Tell TeeTee Socially what you're into..." />
+            </div>
+            <button type="submit" class="btn btn-purple" style="width: 100%;">Create &amp; Sign In</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Feedback Banner -->
+  <div class="toast-banner" id="toast-banner" role="status" aria-live="polite"></div>
+
+  <!-- ========================================================================
+       VANILLA JAVASCRIPT APPLICATION & LOCALSTORAGE PERSISTENCE
+       ======================================================================== -->
+  <script>
+    (function () {
+      'use strict';
+
+      const STORAGE_KEY = 'teetee_socially_state_v1';
+
+      /* ----------------------------------------------------------------------
+         1. DEFAULT SEED DATA (PRE-POPULATED FOR IMMEDIATE USE)
+         ---------------------------------------------------------------------- */
+      function createDefaultState() {
+        const now = Date.now();
+        return {
+          currentUserHandle: 'teetee_official',
+          users: [
+            {
+              handle: 'teetee_official',
+              name: 'TeeTee Creator',
+              passcode: '1234',
+              bio: 'Sharing bold ideas, late-night playlists, and real-time conversations on TeeTee Socially.',
+              avatarColor: 'red',
+              followersCount: 148,
+              following: ['maya_vibe', 'devon_sketch'],
+              bookmarks: ['post_2']
+            },
+            {
+              handle: 'maya_vibe',
+              name: 'Maya Valentine',
+              passcode: '1234',
+              bio: 'Vinyl collector, UI designer & espresso enthusiast.',
+              avatarColor: 'purple',
+              followersCount: 312,
+              following: ['teetee_official'],
+              bookmarks: []
+            },
+            {
+              handle: 'devon_sketch',
+              name: 'Devon Brooks',
+              passcode: '1234',
+              bio: 'Street photography, bold outlines, and indie game dev.',
+              avatarColor: 'red',
+              followersCount: 229,
+              following: ['teetee_official', 'maya_vibe'],
+              bookmarks: []
+            },
+            {
+              handle: 'zara_pulse',
+              name: 'Zara Sterling',
+              passcode: '1234',
+              bio: 'Curating underground synth & city nightscapes.',
+              avatarColor: 'purple',
+              followersCount: 405,
+              following: ['maya_vibe'],
+              bookmarks: []
+            }
+          ],
+          posts: [
+            {
+              id: 'post_1',
+              authorHandle: 'teetee_official',
+              category: 'Creative',
+              text: 'Welcome to TEETEE SOCIALLY! Crisp black outlines, royal purple headers, and crimson red energy. Drop your favorite creative project or weekend playlist below! #TeeTeeSocially #BoldWeb #Design',
+              image: '',
+              createdAt: now - 1000 * 60 * 35,
+              likes: ['maya_vibe', 'devon_sketch', 'zara_pulse'],
+              reposts: ['maya_vibe'],
+              comments: [
+                {
+                  id: 'c_101',
+                  authorHandle: 'maya_vibe',
+                  text: 'The purple, white, and red contrast with the thick borders looks super sharp!',
+                  createdAt: now - 1000 * 60 * 22
+                },
+                {
+                  id: 'c_102',
+                  authorHandle: 'devon_sketch',
+                  text: 'Already bookmarking my favorite threads here.',
+                  createdAt: now - 1000 * 60 * 14
+                }
+              ]
+            },
+            {
+              id: 'post_2',
+              authorHandle: 'maya_vibe',
+              category: 'Music & Vibe',
+              text: 'Spinning classic 90s house records while sketching new poster layouts. Nothing beats tactile design and warm basslines. #MusicVibe #VinylSession #Creative',
+              image: 'https://placehold.co/800x420/6c2bd9/ffffff?text=TEETEE+MIDNIGHT+VINYL+SESSION',
+              createdAt: now - 1000 * 60 * 120,
+              likes: ['teetee_official', 'zara_pulse'],
+              reposts: [],
+              comments: [
+                {
+                  id: 'c_103',
+                  authorHandle: 'zara_pulse',
+                  text: 'Send the tracklist! That sleeve color palette is immaculate.',
+                  createdAt: now - 1000 * 60 * 95
+                }
+              ]
+            },
+            {
+              id: 'post_3',
+              authorHandle: 'devon_sketch',
+              category: 'Tech & Web',
+              text: 'Hot take: Websites feel way more alive when buttons actually look like physical switches you can press. Long live bold CSS borders! #BoldWeb #WebDev #HotTake',
+              image: '',
+              createdAt: now - 1000 * 60 * 240,
+              likes: ['teetee_official', 'maya_vibe', 'zara_pulse'],
+              reposts: ['teetee_official'],
+              comments: []
+            },
+            {
+              id: 'post_4',
+              authorHandle: 'zara_pulse',
+              category: 'Hot Take',
+              text: 'Red accents + royal purple + stark white cards is undefeated for readability at any hour. #TeeTeeSocially #ColorTheory',
+              image: 'https://placehold.co/800x400/e11d48/ffffff?text=CRIMSON+%26+ROYAL+PURPLE+AESTHETIC',
+              createdAt: now - 1000 * 60 * 410,
+              likes: ['maya_vibe'],
+              reposts: [],
+              comments: []
+            }
+          ],
+          notifications: [
+            {
+              id: 'n_1',
+              type: 'like',
+              actorHandle: 'maya_vibe',
+              message: 'liked your welcome post on TeeTee Socially.',
+              timeLabel: '22m ago',
+              unread: true
+            },
+            {
+              id: 'n_2',
+              type: 'comment',
+              actorHandle: 'devon_sketch',
+              message: 'commented: "Already bookmarking my favorite threads here."',
+              timeLabel: '14m ago',
+              unread: true
+            },
+            {
+              id: 'n_3',
+              type: 'follow',
+              actorHandle: 'zara_pulse',
+              message: 'started following your TeeTee profile.',
+              timeLabel: '1h ago',
+              unread: true
+            }
+          ]
+        };
+      }
+
+      /* ----------------------------------------------------------------------
+         2. APPLICATION STATE & STORAGE HELPERS
+         ---------------------------------------------------------------------- */
+      let state = loadState();
+      let activeView = 'home'; // 'home' | 'explore' | 'notifications' | 'profile'
+      let activeHashtagFilter = '';
+      let searchQuery = '';
+      let onlyBookmarks = false;
+      let attachedImageData = '';
+      const expandedComments = new Set(['post_1']);
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            const initial = createDefaultState();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
+            return initial;
+          }
+          return JSON.parse(raw);
+        } catch (err) {
+          console.error('Failed to read localStorage:', err);
+          return createDefaultState();
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (err) {
+          showToast('Storage limit reached — try a smaller image.');
+        }
+      }
+
+      function getCurrentUser() {
+        return state.users.find((u) => u.handle === state.currentUserHandle) || state.users[0];
+      }
+
+      function getUserByHandle(handle) {
+        return (
+          state.users.find((u) => u.handle === handle) || {
+            handle,
+            name: handle,
+            avatarColor: 'purple',
+            bio: '',
+            followersCount: 0,
+            following: [],
+            bookmarks: []
+          }
+        );
+      }
+
+      function getInitials(name) {
+        return (name || 'TT')
+          .split(' ')
+          .map((part) => part[0])
+          .join('')
+          .toUpperCase()
+          .slice(0, 2);
+      }
+
+      function formatRelativeTime(timestamp) {
+        const diffSec = Math.max(1, Math.floor((Date.now() - timestamp) / 1000));
+        if (diffSec < 60) return 'Just now';
+        const diffMin = Math.floor(diffSec / 60);
+        if (diffMin < 60) return `${diffMin}m ago`;
+        const diffHr = Math.floor(diffMin / 60);
+        if (diffHr < 24) return `${diffHr}h ago`;
+        return `${Math.floor(diffHr / 24)}d ago`;
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;');
+      }
+
+      function formatPostTextWithTags(text) {
+        const safe = escapeHtml(text);
+        return safe.replace(/(#[a-zA-Z0-9_]+)/g, '<span class="hashtag-inline">$1</span>');
+      }
+
+      let toastTimer = null;
+      function showToast(message) {
+        const banner = document.getElementById('toast-banner');
+        banner.textContent = message;
+        banner.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          banner.classList.remove('show');
+        }, 2800);
+      }
+
+      /* ----------------------------------------------------------------------
+         3. RENDERING PIPELINE
+         ---------------------------------------------------------------------- */
+      function renderAll() {
+        renderHeaderAndSidebar();
+        renderTrendingTopics();
+        renderSuggestedMembers();
+        renderMainStream();
+      }
+
+      function renderHeaderAndSidebar() {
+        const user = getCurrentUser();
+        const initials = getInitials(user.name);
+        const userPostsCount = state.posts.filter((p) => p.authorHandle === user.handle).length;
+
+        // Header badge
+        const headerAvatar = document.getElementById('header-avatar');
+        headerAvatar.textContent = initials;
+        headerAvatar.className = `avatar-circle ${user.avatarColor === 'purple' ? 'purple' : ''}`;
+        document.getElementById('header-username').textContent = `@${user.handle}`;
+
+        // Notification unread counter
+        const unreadCount = state.notifications.filter((n) => n.unread).length;
+        const notifBadge = document.getElementById('notif-count-badge');
+        notifBadge.textContent = unreadCount;
+        notifBadge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+
+        // Sidebar profile summary
+        const sidebarAvatar = document.getElementById('sidebar-avatar');
+        sidebarAvatar.textContent = initials;
+        sidebarAvatar.style.backgroundColor = user.avatarColor === 'red' ? 'var(--red)' : 'var(--purple)';
+        document.getElementById('sidebar-display-name').textContent = user.name;
+        document.getElementById('sidebar-handle').textContent = `@${user.handle}`;
+        document.getElementById('sidebar-bio').textContent = user.bio;
+
+        document.getElementById('stat-posts').textContent = userPostsCount;
+        document.getElementById('stat-followers').textContent = user.followersCount || 0;
+        document.getElementById('stat-following').textContent = (user.following || []).length;
+
+        // Composer label
+        document.getElementById('composer-author-tag').textContent = `Posting as @${user.handle}`;
+      }
+
+      function renderTrendingTopics() {
+        const tagCounts = new Map();
+        state.posts.forEach((post) => {
+          const matches = post.text.match(/#[a-zA-Z0-9_]+/g) || [];
+          matches.forEach((tag) => {
+            const normalized = tag.toLowerCase();
+            const existing = tagCounts.get(normalized) || { label: tag, count: 0 };
+            existing.count += 1;
+            tagCounts.set(normalized, existing);
+          });
+        });
+
+        // Ensure baseline trending tags exist
+        if (!tagCounts.has('#teeteesocially')) {
+          tagCounts.set('#teeteesocially', { label: '#TeeTeeSocially', count: 1 });
+        }
+
+        const sorted = Array.from(tagCounts.entries())
+          .sort((a, b) => b[1].count - a[1].count)
+          .slice(0, 5);
+
+        const listEl = document.getElementById('trending-list');
+        const clearBtn = document.getElementById('clear-tag-filter-btn');
+        clearBtn.style.display = activeHashtagFilter ? 'inline-flex' : 'none';
+
+        listEl.innerHTML = sorted
+          .map(([normKey, info]) => {
+            const isActive = activeHashtagFilter === normKey;
+            return `
+              <li>
+                <button type="button" class="trending-item ${isActive ? 'active-tag' : ''}" data-trend-tag="${normKey}" style="width: 100%; text-align: left;">
+                  <span class="trending-tag">${escapeHtml(info.label)}</span>
+                  <span class="trending-count">${info.count} ${info.count === 1 ? 'post' : 'posts'}</span>
+                </button>
+              </li>
+            `;
+          })
+          .join('');
+      }
+
+      function renderSuggestedMembers() {
+        const currentUser = getCurrentUser();
+        const others = state.users.filter((u) => u.handle !== currentUser.handle);
+        const container = document.getElementById('suggested-members-list');
+
+        container.innerHTML = others
+          .map((member) => {
+            const isFollowing = (currentUser.following || []).includes(member.handle);
+            return `
+              <div class="member-row">
+                <div class="member-info">
+                  <span class="avatar-circle ${member.avatarColor === 'purple' ? 'purple' : ''}">${getInitials(member.name)}</span>
+                  <div class="member-meta">
+                    <div class="member-name">${escapeHtml(member.name)}</div>
+                    <div class="member-handle">@${escapeHtml(member.handle)}</div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="btn btn-sm ${isFollowing ? 'btn-purple' : 'btn-white'}"
+                  data-follow-handle="${escapeHtml(member.handle)}"
+                >
+                  ${isFollowing ? 'Following' : 'Follow'}
+                </button>
+              </div>
+            `;
+          })
+          .join('');
+      }
+
+      function renderMainStream() {
+        const container = document.getElementById('main-stream-container');
+        const composerCard = document.getElementById('composer-card');
+        const filterBanner = document.getElementById('feed-filter-banner');
+        const viewTitle = document.getElementById('active-view-title');
+        const filterChip = document.getElementById('active-filter-chip');
+        const bookmarkBtn = document.getElementById('bookmark-filter-btn');
+
+        // Highlight active nav tab
+        document.querySelectorAll('.nav-tab').forEach((tab) => {
+          tab.classList.toggle('active', tab.dataset.view === activeView);
+        });
+
+        bookmarkBtn.className = `btn btn-sm ${onlyBookmarks ? 'btn-red' : 'btn-white'}`;
+        bookmarkBtn.textContent = onlyBookmarks ? 'Showing Saved' : 'Saved';
+
+        // View-specific visibility
+        if (activeView === 'notifications') {
+          composerCard.style.display = 'none';
+          filterBanner.style.display = 'none';
+          renderNotificationsView(container);
+          return;
+        }
+
+        composerCard.style.display = activeView === 'explore' ? 'none' : 'block';
+        filterBanner.style.display = 'flex';
+
+        const currentUser = getCurrentUser();
+        let posts = [...state.posts].sort((a, b) => b.createdAt - a.createdAt);
+
+        if (activeView === 'home') {
+          viewTitle.textContent = 'Home Feed';
+        } else if (activeView === 'explore') {
+          viewTitle.textContent = 'Explore Popular Posts';
+          posts.sort((a, b) => (b.likes.length + b.comments.length * 2) - (a.likes.length + a.comments.length * 2));
+        } else if (activeView === 'profile') {
+          viewTitle.textContent = `Posts by @${currentUser.handle}`;
+          posts = posts.filter((p) => p.authorHandle === currentUser.handle);
+        }
+
+        if (onlyBookmarks) {
+          const savedIds = currentUser.bookmarks || [];
+          posts = posts.filter((p) => savedIds.includes(p.id));
+        }
+
+        if (activeHashtagFilter) {
+          posts = posts.filter((p) => p.text.toLowerCase().includes(activeHashtagFilter));
+        }
+
+        if (searchQuery) {
+          posts = posts.filter((p) => {
+            const author = getUserByHandle(p.authorHandle);
+            const haystack = `${p.text} ${p.authorHandle} ${author.name} ${p.category}`.toLowerCase();
+            return haystack.includes(searchQuery);
+          });
+        }
+
+        const chips = [];
+        if (activeHashtagFilter) chips.push(`Tag: ${activeHashtagFilter}`);
+        if (onlyBookmarks) chips.push('Saved Bookmarks');
+        if (searchQuery) chips.push(`Search: "${searchQuery}"`);
+        filterChip.textContent = chips.length ? `• ${chips.join(' • ')}` : '';
+
+        if (posts.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3 style="margin: 0 0 6px; font-family: var(--font-display);">No Posts Found</h3>
+              <p style="margin: 0; color: var(--gray-muted); font-size: 0.9rem;">
+                Try clearing your active filter or publish a brand-new post above!
+              </p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = posts.map((post) => renderPostCard(post, currentUser)).join('');
+      }
+
+      function renderPostCard(post, currentUser) {
+        const author = getUserByHandle(post.authorHandle);
+        const isLiked = (post.likes || []).includes(currentUser.handle);
+        const isReposted = (post.reposts || []).includes(currentUser.handle);
+        const isBookmarked = (currentUser.bookmarks || []).includes(post.id);
+        const isOwnPost = post.authorHandle === currentUser.handle;
+        const commentsOpen = expandedComments.has(post.id);
+        const isHot = post.category === 'Hot Take' || (post.likes || []).length >= 3;
+
+        return `
+          <article class="post-card" data-post-id="${post.id}">
+            <div class="post-header">
+              <div class="post-author-block">
+                <span class="avatar-circle ${author.avatarColor === 'purple' ? 'purple' : ''}">${getInitials(author.name)}</span>
+                <div>
+                  <div class="post-author-name">
+                    <span>${escapeHtml(author.name)}</span>
+                    <span class="category-badge ${isHot ? 'hot' : ''}">${escapeHtml(post.category)}</span>
+                  </div>
+                  <div class="post-subline">@${escapeHtml(author.handle)} • ${formatRelativeTime(post.createdAt)}</div>
+                </div>
+              </div>
+
+              ${
+                isOwnPost
+                  ? `<button type="button" class="btn btn-white btn-sm" data-delete-post="${post.id}" title="Delete post">Delete</button>`
+                  : ''
+              }
+            </div>
+
+            <p class="post-body-text">${formatPostTextWithTags(post.text)}</p>
+
+            ${
+              post.image
+                ? `<div class="post-image-frame">
+                    <img src="${escapeHtml(post.image)}" alt="Post attachment by ${escapeHtml(author.name)}" onerror="this.parentElement.style.display='none'" />
+                  </div>`
+                : ''
+            }
+
+            <div class="post-actions">
+              <div class="action-group">
+                <button type="button" class="action-pill ${isLiked ? 'liked' : ''}" data-like-post="${post.id}">
+                  <span>${isLiked ? '♥' : '♡'} Like</span>
+                  <span>${(post.likes || []).length}</span>
+                </button>
+
+                <button type="button" class="action-pill" data-toggle-comments="${post.id}">
+                  <span>💬 Comment</span>
+                  <span>${(post.comments || []).length}</span>
+                </button>
+
+                <button type="button" class="action-pill ${isReposted ? 'reposted' : ''}" data-repost-post="${post.id}">
+                  <span>↻ Repost</span>
+                  <span>${(post.reposts || []).length}</span>
+                </button>
+              </div>
+
+              <button type="button" class="action-pill ${isBookmarked ? 'bookmarked' : ''}" data-bookmark-post="${post.id}">
+                <span>${isBookmarked ? '★ Saved' : '☆ Save'}</span>
+              </button>
+            </div>
+
+            ${
+              commentsOpen
+                ? `<div class="comment-drawer">
+                    ${
+                      (post.comments || []).length === 0
+                        ? `<div style="font-size: 0.83rem; color: var(--gray-muted);">No comments yet. Start the conversation below!</div>`
+                        : post.comments
+                            .map((c) => {
+                              const cAuthor = getUserByHandle(c.authorHandle);
+                              return `
+                                <div class="comment-item">
+                                  <div class="comment-meta">
+                                    <span>${escapeHtml(cAuthor.name)} (@${escapeHtml(cAuthor.handle)})</span>
+                                    <small style="color: var(--gray-muted); font-weight: 600;">${formatRelativeTime(c.createdAt)}</small>
+                                  </div>
+                                  <p class="comment-text">${escapeHtml(c.text)}</p>
+                                </div>
+                              `;
+                            })
+                            .join('')
+                    }
+
+                    <form class="comment-form" data-comment-form="${post.id}">
+                      <input
+                        type="text"
+                        name="commentText"
+                        class="field-input"
+                        style="padding: 8px 12px;"
+                        placeholder="Write a reply as @${escapeHtml(currentUser.handle)}..."
+                        required
+                      />
+                      <button type="submit" class="btn btn-purple btn-sm">Reply</button>
+                    </form>
+                  </div>`
+                : ''
+            }
+          </article>
+        `;
+      }
+
+      function renderNotificationsView(container) {
+        const headerHtml = `
+          <div class="filter-banner">
+            <strong style="font-family: var(--font-display); font-size: 1.05rem;">Activity &amp; Notifications</strong>
+            <button type="button" class="btn btn-purple btn-sm" id="mark-all-read-btn">Mark All Read</button>
+          </div>
+        `;
+
+        if (state.notifications.length === 0) {
+          container.innerHTML =
+            headerHtml +
+            `<div class="empty-state"><p style="margin:0; font-weight:700;">No notifications yet.</p></div>`;
+          return;
+        }
+
+        const listHtml = state.notifications
+          .map((n) => {
+            const actor = getUserByHandle(n.actorHandle);
+            return `
+              <div class="notification-card" style="${n.unread ? 'background-color: var(--purple-soft);' : ''}">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span class="avatar-circle ${actor.avatarColor === 'purple' ? 'purple' : ''}">${getInitials(actor.name)}</span>
+                  <div>
+                    <div style="font-size: 0.9rem;">
+                      <strong>${escapeHtml(actor.name)}</strong> (@${escapeHtml(actor.handle)}) ${escapeHtml(n.message)}
+                    </div>
+                    <div style="font-size: 0.76rem; color: var(--gray-muted); font-weight: 600;">${escapeHtml(n.timeLabel)}</div>
+                  </div>
+                </div>
+                <span class="notif-tag ${escapeHtml(n.type)}">${escapeHtml(n.type)}</span>
+              </div>
+            `;
+          })
+          .join('');
+
+        container.innerHTML = headerHtml + listHtml;
+      }
+
+      function renderAccountModalQuickList() {
+        const grid = document.getElementById('quick-account-grid');
+        grid.innerHTML = state.users
+          .map(
+            (u) => `
+            <button type="button" class="btn btn-white btn-sm" data-quick-login="${escapeHtml(u.handle)}" style="justify-content: flex-start;">
+              <span class="avatar-circle ${u.avatarColor === 'purple' ? 'purple' : ''}" style="width:24px; height:24px; font-size:0.7rem;">${getInitials(u.name)}</span>
+              <span>@${escapeHtml(u.handle)}</span>
+            </button>
+          `
+          )
+          .join('');
+      }
+
+      /* ----------------------------------------------------------------------
+         4. EVENT LISTENERS & INTERACTIONS
+         ---------------------------------------------------------------------- */
+      function bindEvents() {
+        // Navigation Tabs
+        document.querySelectorAll('.nav-tab').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            activeView = btn.dataset.view;
+            if (activeView === 'notifications') {
+              state.notifications.forEach((n) => (n.unread = false));
+              saveState();
+            }
+            renderAll();
+          });
+        });
+
+        document.getElementById('brand-home-link').addEventListener('click', (e) => {
+          e.preventDefault();
+          activeView = 'home';
+          activeHashtagFilter = '';
+          onlyBookmarks = false;
+          searchQuery = '';
+          document.getElementById('feed-search-input').value = '';
+          renderAll();
+        });
+
+        // Composer Image Attachment Drawer
+        const imageDrawer = document.getElementById('image-attach-drawer');
+        const previewWrap = document.getElementById('composer-preview-wrap');
+        const previewImg = document.getElementById('composer-preview-img');
+        const urlInput = document.getElementById('post-image-url-input');
+        const fileInput = document.getElementById('post-image-file-input');
+
+        document.getElementById('toggle-image-drawer-btn').addEventListener('click', () => {
+          imageDrawer.classList.toggle('open');
+        });
+
+        urlInput.addEventListener('input', () => {
+          const val = urlInput.value.trim();
+          if (val) {
+            attachedImageData = val;
+            previewImg.src = val;
+            previewWrap.style.display = 'block';
+          } else {
+            attachedImageData = '';
+            previewWrap.style.display = 'none';
+          }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            attachedImageData = ev.target.result;
+            urlInput.value = '';
+            previewImg.src = attachedImageData;
+            previewWrap.style.display = 'block';
+          };
+          reader.readAsDataURL(file);
+        });
+
+        document.getElementById('remove-preview-btn').addEventListener('click', () => {
+          attachedImageData = '';
+          urlInput.value = '';
+          fileInput.value = '';
+          previewWrap.style.display = 'none';
+        });
+
+        // Submit New Post
+        document.getElementById('post-composer-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const textInput = document.getElementById('post-text-input');
+          const categorySelect = document.getElementById('post-category-select');
+          const text = textInput.value.trim();
+          if (!text) return;
+
+          const currentUser = getCurrentUser();
+          const newPost = {
+            id: 'post_' + Date.now(),
+            authorHandle: currentUser.handle,
+            category: categorySelect.value,
+            text,
+            image: attachedImageData,
+            createdAt: Date.now(),
+            likes: [],
+            reposts: [],
+            comments: []
+          };
+
+          state.posts.unshift(newPost);
+          saveState();
+
+          textInput.value = '';
+          attachedImageData = '';
+          urlInput.value = '';
+          fileInput.value = '';
+          previewWrap.style.display = 'none';
+          imageDrawer.classList.remove('open');
+
+          if (activeView === 'explore') activeView = 'home';
+          renderAll();
+          showToast('Published to TeeTee Socially!');
+        });
+
+        // Search & Saved Filter
+        document.getElementById('feed-search-input').addEventListener('input', (e) => {
+          searchQuery = e.target.value.trim().toLowerCase();
+          renderMainStream();
+        });
+
+        document.getElementById('bookmark-filter-btn').addEventListener('click', () => {
+          onlyBookmarks = !onlyBookmarks;
+          renderMainStream();
+        });
+
+        // Trending Topic Click & Reset
+        document.getElementById('trending-list').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-trend-tag]');
+          if (!btn) return;
+          const tag = btn.dataset.trendTag;
+          activeHashtagFilter = activeHashtagFilter === tag ? '' : tag;
+          if (activeView === 'notifications') activeView = 'home';
+          renderAll();
+        });
+
+        document.getElementById('clear-tag-filter-btn').addEventListener('click', () => {
+          activeHashtagFilter = '';
+          renderAll();
+        });
+
+        // Suggested Members Follow Toggle
+        document.getElementById('suggested-members-list').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-follow-handle]');
+          if (!btn) return;
+          const targetHandle = btn.dataset.followHandle;
+          const currentUser = getCurrentUser();
+          const targetUser = getUserByHandle(targetHandle);
+
+          currentUser.following = currentUser.following || [];
+          const idx = currentUser.following.indexOf(targetHandle);
+          if (idx >= 0) {
+            currentUser.following.splice(idx, 1);
+            targetUser.followersCount = Math.max(0, (targetUser.followersCount || 1) - 1);
+            showToast(`Unfollowed @${targetHandle}`);
+          } else {
+            currentUser.following.push(targetHandle);
+            targetUser.followersCount = (targetUser.followersCount || 0) + 1;
+            showToast(`Now following @${targetHandle}`);
+          }
+          saveState();
+          renderAll();
+        });
+
+        // Delegated Post Interactions (Like, Comment, Repost, Bookmark, Delete)
+        const streamContainer = document.getElementById('main-stream-container');
+
+        streamContainer.addEventListener('click', (e) => {
+          const currentUser = getCurrentUser();
+
+          const likeBtn = e.target.closest('[data-like-post]');
+          if (likeBtn) {
+            const post = state.posts.find((p) => p.id === likeBtn.dataset.likePost);
+            if (!post) return;
+            const idx = post.likes.indexOf(currentUser.handle);
+            if (idx >= 0) {
+              post.likes.splice(idx, 1);
+            } else {
+              post.likes.push(currentUser.handle);
+            }
+            saveState();
+            renderMainStream();
+            return;
+          }
+
+          const repostBtn = e.target.closest('[data-repost-post]');
+          if (repostBtn) {
+            const post = state.posts.find((p) => p.id === repostBtn.dataset.repostPost);
+            if (!post) return;
+            post.reposts = post.reposts || [];
+            const idx = post.reposts.indexOf(currentUser.handle);
+            if (idx >= 0) {
+              post.reposts.splice(idx, 1);
+              showToast('Removed repost');
+            } else {
+              post.reposts.push(currentUser.handle);
+              showToast('Reposted to your followers!');
+            }
+            saveState();
+            renderMainStream();
+            return;
+          }
+
+          const bookmarkBtn = e.target.closest('[data-bookmark-post]');
+          if (bookmarkBtn) {
+            const postId = bookmarkBtn.dataset.bookmarkPost;
+            currentUser.bookmarks = currentUser.bookmarks || [];
+            const idx = currentUser.bookmarks.indexOf(postId);
+            if (idx >= 0) {
+              currentUser.bookmarks.splice(idx, 1);
+              showToast('Removed from Saved');
+            } else {
+              currentUser.bookmarks.push(postId);
+              showToast('Saved to Bookmarks');
+            }
+            saveState();
+            renderMainStream();
+            return;
+          }
+
+          const toggleCommentsBtn = e.target.closest('[data-toggle-comments]');
+          if (toggleCommentsBtn) {
+            const postId = toggleCommentsBtn.dataset.toggleComments;
+            if (expandedComments.has(postId)) {
+              expandedComments.delete(postId);
+            } else {
+              expandedComments.add(postId);
+            }
+            renderMainStream();
+            return;
+          }
+
+          const deleteBtn = e.target.closest('[data-delete-post]');
+          if (deleteBtn) {
+            const postId = deleteBtn.dataset.deletePost;
+            state.posts = state.posts.filter((p) => p.id !== postId);
+            saveState();
+            renderAll();
+            showToast('Post deleted');
+            return;
+          }
+
+          const markReadBtn = e.target.closest('#mark-all-read-btn');
+          if (markReadBtn) {
+            state.notifications.forEach((n) => (n.unread = false));
+            saveState();
+            renderAll();
+            showToast('All notifications marked read');
+          }
+        });
+
+        // Delegated Comment Form Submit
+        streamContainer.addEventListener('submit', (e) => {
+          const form = e.target.closest('[data-comment-form]');
+          if (!form) return;
+          e.preventDefault();
+
+          const postId = form.dataset.commentForm;
+          const post = state.posts.find((p) => p.id === postId);
+          if (!post) return;
+
+          const input = form.querySelector('input[name="commentText"]');
+          const text = input.value.trim();
+          if (!text) return;
+
+          const currentUser = getCurrentUser();
+          post.comments.push({
+            id: 'c_' + Date.now(),
+            authorHandle: currentUser.handle,
+            text,
+            createdAt: Date.now()
+          });
+
+          expandedComments.add(postId);
+          saveState();
+          renderMainStream();
+          showToast('Reply posted!');
+        });
+
+        // Account Modal Controls
+        const accountModal = document.getElementById('account-modal');
+        const openModalBtn = document.getElementById('open-account-modal-btn');
+        const closeModalBtn = document.getElementById('close-account-modal-btn');
+        const tabSwitchLogin = document.getElementById('tab-switch-login');
+        const tabCreateAccount = document.getElementById('tab-create-account');
+        const panelSwitchLogin = document.getElementById('panel-switch-login');
+        const panelCreateAccount = document.getElementById('panel-create-account');
+
+        openModalBtn.addEventListener('click', () => {
+          renderAccountModalQuickList();
+          accountModal.classList.add('open');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+          accountModal.classList.remove('open');
+        });
+
+        accountModal.addEventListener('click', (e) => {
+          if (e.target === accountModal) accountModal.classList.remove('open');
+        });
+
+        tabSwitchLogin.addEventListener('click', () => {
+          tabSwitchLogin.classList.add('active');
+          tabCreateAccount.classList.remove('active');
+          panelSwitchLogin.style.display = 'block';
+          panelCreateAccount.style.display = 'none';
+        });
+
+        tabCreateAccount.addEventListener('click', () => {
+          tabCreateAccount.classList.add('active');
+          tabSwitchLogin.classList.remove('active');
+          panelCreateAccount.style.display = 'block';
+          panelSwitchLogin.style.display = 'none';
+        });
+
+        // Quick Account Switcher
+        document.getElementById('quick-account-grid').addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-quick-login]');
+          if (!btn) return;
+          const handle = btn.dataset.quickLogin;
+          state.currentUserHandle = handle;
+          saveState();
+          accountModal.classList.remove('open');
+          renderAll();
+          showToast(`Switched to @${handle}`);
+        });
+
+        // Login Form Submit
+        document.getElementById('login-account-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const handle = document
+            .getElementById('login-handle-input')
+            .value.trim()
+            .replace(/^@/, '')
+            .toLowerCase();
+          const pass = document.getElementById('login-pass-input').value;
+
+          const matched = state.users.find((u) => u.handle.toLowerCase() === handle);
+          if (!matched) {
+            showToast(`Member @${handle} not found.`);
+            return;
+          }
+          if (matched.passcode !== pass) {
+            showToast('Incorrect passcode (hint: 1234 for demo accounts).');
+            return;
+          }
+
+          state.currentUserHandle = matched.handle;
+          saveState();
+          accountModal.classList.remove('open');
+          renderAll();
+          showToast(`Signed in as @${matched.handle}`);
+        });
+
+        // Register New Account Submit
+        document.getElementById('register-account-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('reg-name-input').value.trim();
+          const handle = document
+            .getElementById('reg-handle-input')
+            .value.trim()
+            .replace(/^@/, '')
+            .replace(/[^a-zA-Z0-9_]/g, '')
+            .toLowerCase();
+          const passcode = document.getElementById('reg-pass-input').value;
+          const bio =
+            document.getElementById('reg-bio-input').value.trim() ||
+            'New member on TeeTee Socially!';
+
+          if (!name || !handle) return;
+          if (state.users.some((u) => u.handle === handle)) {
+            showToast(`Handle @${handle} is already taken.`);
+            return;
+          }
+
+          const newUser = {
+            handle,
+            name,
+            passcode,
+            bio,
+            avatarColor: state.users.length % 2 === 0 ? 'red' : 'purple',
+            followersCount: 1,
+            following: ['teetee_official'],
+            bookmarks: []
+          };
+
+          state.users.push(newUser);
+          state.currentUserHandle = newUser.handle;
+          saveState();
+
+          document.getElementById('register-account-form').reset();
+          accountModal.classList.remove('open');
+          renderAll();
+          showToast(`Welcome to TeeTee Socially, @${newUser.handle}!`);
+        });
+      }
+
+      /* ----------------------------------------------------------------------
+         5. INITIALIZE APPLICATION
+         ---------------------------------------------------------------------- */
+      bindEvents();
+      renderAll();
+    })();
+  </script>
+</body>
+</html>
